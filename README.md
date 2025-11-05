@@ -55,8 +55,10 @@ Untuk menjalankan source code:
 
 Clone repository ini untuk mendapatkan source code:
 
+Versi saat ini: v2.2.0 (05/11/2025)
+
 ```bash
-git clone https://github.com/iunoo/renamerged
+git clone https://github.com/iunoxid/renamerged
 ```
 
 ## 🚀 Cara Pakai
@@ -64,7 +66,7 @@ git clone https://github.com/iunoo/renamerged
 1. **📂 Clone Repository**:
 
    ```bash
-   git clone https://github.com/iunoo/renamerged
+   git clone https://github.com/iunoxid/renamerged
    cd renamerged
    ```
 

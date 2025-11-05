@@ -36,6 +36,7 @@ venv/
 # User settings and test files
 user_settings.json
 test pdf/
+test/
 
 # Build files
 *.exe

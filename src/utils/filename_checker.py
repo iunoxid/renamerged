@@ -11,6 +11,12 @@ def check_long_filenames(input_directory, settings, log_callback=None):
     # Ambil pengaturan separator
     separator = settings.get("separator", "-")
     slash_replacement = settings.get("slash_replacement", "_")
+    # Wrap reference option
+    wrap_ref_var = settings.get("wrap_reference") if isinstance(settings, dict) else None
+    try:
+        wrap_reference = bool(wrap_ref_var.get()) if hasattr(wrap_ref_var, 'get') else bool(wrap_ref_var)
+    except Exception:
+        wrap_reference = False
     
     pdf_files = [f for f in os.listdir(input_directory) if f.endswith('.pdf')]
     
@@ -36,7 +42,12 @@ def check_long_filenames(input_directory, settings, log_callback=None):
             component_values = {
                 "Nama Lawan Transaksi": (partner_name, settings.get("use_name")),
                 "Tanggal Faktur Pajak": (date, settings.get("use_date")),
-                "Referensi": (reference if reference else "NoRef", settings.get("use_reference")),
+                # Terapkan penggantian '/' dan opsi bungkus kurung untuk referensi
+                "Referensi": ( 
+                    (f"({reference.replace('/', slash_replacement)})" if (reference and wrap_reference) else 
+                     (reference.replace('/', slash_replacement) if reference else "NoRef")),
+                    settings.get("use_reference")
+                ),
                 "Nomor Faktur Pajak": (faktur_number, settings.get("use_faktur"))
             }
             

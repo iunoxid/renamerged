@@ -226,6 +226,23 @@ class ModeSelectionComponent:
         )
         self.slash_replacement_menu.grid(row=1, column=0, columnspan=2, sticky="ew")
 
+        # Reference options
+        self.reference_options_frame = ctk.CTkFrame(self.advanced_section, fg_color="transparent")
+        self.reference_options_frame.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(12, 0))
+        self.reference_options_frame.grid_columnconfigure(0, weight=1)
+
+        self.wrap_ref_checkbox = ctk.CTkCheckBox(
+            self.reference_options_frame,
+            text="Bungkus Referensi dengan Kurung ( )",
+            variable=self.settings.get("wrap_reference"),
+            corner_radius=4,
+            border_width=2,
+            fg_color=self.colors["primary"],
+            hover_color=self.colors["primary_hover"],
+            border_color=self.colors["border_light"]
+        )
+        self.wrap_ref_checkbox.grid(row=0, column=0, sticky="w")
+
         # Draggable components container
         self.components_container_frame = ctk.CTkFrame(
             self.settings_card,
@@ -404,6 +421,11 @@ class ModeSelectionComponent:
         self.mode_label.configure(text_color=self.colors["fg"])
         self.separator_label.configure(text_color=self.colors["fg"])
         self.slash_label.configure(text_color=self.colors["fg"])
+        if hasattr(self, 'wrap_ref_checkbox'):
+            self.wrap_ref_checkbox.configure(text_color=self.colors["fg"],
+                                             fg_color=self.colors["primary"],
+                                             hover_color=self.colors["primary_hover"],
+                                             border_color=self.colors["border_light"]) 
         
         # Update toggle button
         self.toggle_btn.configure(

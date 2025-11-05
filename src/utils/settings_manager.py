@@ -16,6 +16,7 @@ class SettingsManager:
             "use_date": True,
             "use_reference": True,
             "use_faktur": True,
+            "wrap_reference": False,
             "separator": "-",
             "slash_replacement": "_",
             "component_order": [

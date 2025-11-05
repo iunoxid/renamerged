@@ -17,7 +17,7 @@ def run_gui():
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
     root = ctk.CTk()
-    VERSION = "2.1.0"  # Ganti dengan versi yang diinginkan
+    VERSION = "2.2.0"  # Ganti dengan versi yang diinginkan
     root.title(f"RENAMERGED v{VERSION} - Rename & Merge PDFs")
     root.geometry("1100x800")
     root.resizable(True, True)
@@ -75,6 +75,7 @@ class RenamergedGUI:
             "use_date": tk.BooleanVar(value=saved_settings.get("use_date", True)),
             "use_reference": tk.BooleanVar(value=saved_settings.get("use_reference", True)),
             "use_faktur": tk.BooleanVar(value=saved_settings.get("use_faktur", True)),
+            "wrap_reference": tk.BooleanVar(value=saved_settings.get("wrap_reference", False)),
             "component_order": saved_settings.get("component_order", None)
         }
         
@@ -201,6 +202,7 @@ class RenamergedGUI:
             "use_date": self.settings["use_date"].get() if hasattr(self.settings["use_date"], 'get') else self.settings["use_date"],
             "use_reference": self.settings["use_reference"].get() if hasattr(self.settings["use_reference"], 'get') else self.settings["use_reference"],
             "use_faktur": self.settings["use_faktur"].get() if hasattr(self.settings["use_faktur"], 'get') else self.settings["use_faktur"],
+            "wrap_reference": self.settings["wrap_reference"].get() if hasattr(self.settings["wrap_reference"], 'get') else self.settings["wrap_reference"],
             "component_order": self.mode_selection.get_component_order() if hasattr(self.mode_selection, 'get_component_order') else self.settings.get("component_order", None),
             "settings_expanded": self.mode_selection.is_expanded if hasattr(self.mode_selection, 'is_expanded') else True
         }

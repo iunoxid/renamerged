@@ -77,7 +77,8 @@ def extract_info_from_pdf(pdf_path, log_callback=None):
             # Normalisasi whitespace berlebih
             reference = re.sub(r'\s+', ' ', reference).strip()
             # Ganti karakter yang tidak bisa digunakan untuk nama file dengan spasi
-            invalid_chars = r'[<>:"/\\|?*()]'  # Tambahkan kurung buka tutup
+            # Biarkan '/' tetap ada agar bisa diganti sesuai pilihan user (slash_replacement) di generate_filename
+            invalid_chars = r'[<>:"\\|?*()]'  # Tanpa '/'
             reference = re.sub(invalid_chars, ' ', reference)
             # Hapus karakter trailing yang tidak diinginkan
             reference = re.sub(r'[)\]\}]+$', '', reference).strip()
@@ -115,10 +116,23 @@ def generate_filename(partner_name, faktur_number, date, reference, settings, co
         reference = reference.replace("/", slash_replacement)
 
     parts = []
+    # Opsi bungkus referensi dalam kurung
+    wrap_ref_var = settings.get("wrap_reference") if isinstance(settings, dict) else None
+    wrap_reference = False
+    if wrap_ref_var is not None:
+        try:
+            wrap_reference = bool(wrap_ref_var.get()) if hasattr(wrap_ref_var, 'get') else bool(wrap_ref_var)
+        except Exception:
+            wrap_reference = False
+
+    # Siapkan nilai referensi untuk ditampilkan (setelah penggantian slash)
+    display_reference = reference if reference else "NoRef"
+    if display_reference and display_reference != "NoRef" and wrap_reference:
+        display_reference = f"({display_reference})"
     component_values = {
         "Nama Lawan Transaksi": (partner_name, settings.get("use_name")),
         "Tanggal Faktur Pajak": (date, settings.get("use_date")),
-        "Referensi": (reference if reference else "NoRef", settings.get("use_reference")),
+        "Referensi": (display_reference, settings.get("use_reference")),
         "Nomor Faktur Pajak": (faktur_number, settings.get("use_faktur"))
     }
 
