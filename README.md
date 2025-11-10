@@ -53,9 +53,9 @@ Untuk menjalankan source code:
 
 ## Download
 
-Clone repository ini untuk mendapatkan source code:
+[Disini Versi (v2.2.0 (05/11/2025))](https://github.com/iunoxid/renamerged/archive/refs/heads/main.zip)
 
-Versi saat ini: v2.2.0 (05/11/2025)
+Atau, Clone repository ini untuk mendapatkan source code:
 
 ```bash
 git clone https://github.com/iunoxid/renamerged
