@@ -33,9 +33,17 @@ class ProgressBarComponent:
 
     def set_progress(self, value):
         """Mengatur nilai progress bar secara langsung (skala 0 hingga 1)."""
-        self.progress_bar.set(value)
-        self.parent.update_idletasks()
-        self.parent.update()
+        # Clamp and sanitize value to avoid rendering issues
+        try:
+            v = float(value)
+        except (TypeError, ValueError):
+            v = 0.0
+        # Handle NaN/inf
+        if v != v or v == float("inf") or v == float("-inf"):
+            v = 0.0
+        v = max(0.0, min(1.0, v))
+        # Only set; do not call update()/update_idletasks() to avoid re-entrant mainloop
+        self.progress_bar.set(v)
 
     def update_theme(self, colors):
         self.colors = colors

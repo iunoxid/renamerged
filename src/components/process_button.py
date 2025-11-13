@@ -295,13 +295,12 @@ class ProcessButtonComponent:
 
         percentage = min(max(percentage, 0), 100)
         normalized_progress = percentage / 100
-
-        self.gui.progress_bar.set_progress(normalized_progress)
-        self.progress_var.set(normalized_progress)
-        self.progress_percentage_var.set(f"{int(percentage)}%")
-        self.parent.update_idletasks()
-        self.parent.update()
-        time.sleep(0.05)
+        # Schedule UI update on main thread; avoid direct update()/sleep
+        def _ui_update():
+            self.gui.progress_bar.set_progress(normalized_progress)
+            self.progress_var.set(normalized_progress)
+            self.progress_percentage_var.set(f"{int(percentage)}%")
+        self.parent.after(0, _ui_update)
     
     def get_detailed_error_message(self, exception):
         """Memberikan pesan error yang lebih jelas untuk user"""

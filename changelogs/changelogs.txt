@@ -1,5 +1,22 @@
 Changelog
 
+Versi 2.2.1 (13/11/2025)
+• Ringkasan Bug
+  - RecursionError: maximum recursion depth exceeded muncul tepat setelah proses “Selesai”.
+
+• Akar Masalah
+  - Re-entrant Tk mainloop: progress bar memanggil update()/update_idletasks() dari callback after(), memicu redraw
+    berulang di Tk Canvas/CTkProgressBar.
+
+•  Perbaikan
+  - Hapus update()/update_idletasks() dari setter progress dan clamp nilai 0..1.
+      - src/components/progress_bar.py:34
+  - Jadwalkan pembaruan UI via after(0) dan hilangkan update()/sleep di callback lama.
+      - src/components/process_button.py:288
+
+•  Dampak
+  - Mencegah RecursionError pasca proses, UI tetap responsif, pembaruan progress stabil (aman dari NaN/Inf).
+================================================================================================================================================================
 
 Versi 2.2.0 (05/11/2025)
 - Fitur: Opsi "Bungkus Referensi dengan Kurung ( )" di GUI (Pengaturan Proses > Advanced). Saat aktif, Referensi akan dibungkus, contoh: "-xxx-(CV2501001)".

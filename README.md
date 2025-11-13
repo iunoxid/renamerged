@@ -53,7 +53,7 @@ Untuk menjalankan source code:
 
 ## Download
 
-[Disini Versi (v2.2.0 (05/11/2025))](https://github.com/iunoxid/renamerged/archive/refs/heads/main.zip)
+[Disini Versi (v2.2.1 (13/11/2025))](https://github.com/iunoxid/renamerged/archive/refs/heads/main.zip)
 
 Atau, Clone repository ini untuk mendapatkan source code:
 
